@@ -14,7 +14,7 @@ public class TestManejoUsuarios {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         List<Usuario> usuarios = usuarioDao.seleccionar();
         for(Usuario usuario: usuarios){
-            System.out.print("Usuario = " + usuario);
+            System.out.println("Usuario = " + usuario);
         }
     }
 }
