@@ -8,12 +8,14 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author jhumb
  */
 public class UsuarioDAO {
-    private static final String SQL_SELECT = "SELECT * FROM dusuarios;";
+    private static final String SQL_SELECT = "SELECT ide_usr, ndu_usr, con_usr FROM dusuarios";
+    private static final String SQL_INSERT = "INSERT INTO dusuarios(ide_usr, ndu_usr, con_usr) VALUES(?, ?, ?)";
     
     
    public List<Usuario> seleccionar(){
@@ -41,14 +43,39 @@ public class UsuarioDAO {
         }
         finally{
           try {
-              Conexion.close(rs);
-              Conexion.close(stmt);
-              Conexion.close(conn);
+              close(rs);
+              close(stmt);
+              close(conn);
           } catch (SQLException ex) {
               ex.printStackTrace(System.out);
           }
             
         }
         return usuarios;
+   }
+   
+   public int insertar(Usuario usuario){
+       Connection conn = null;
+       PreparedStatement stmt = null;
+       int registros = 0;
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_INSERT);
+            stmt.setString(1, usuario.getNombre());
+            stmt.setString(2, usuario.getContraseña());
+            
+            registros = stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+           try {
+               close(stmt);
+               close(conn);
+           } catch (SQLException ex) {
+               ex.printStackTrace(System.out);
+           }
+        }
+        return registros;
+       
    }
 }
