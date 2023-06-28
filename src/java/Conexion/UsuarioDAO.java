@@ -1,9 +1,12 @@
 
 package Conexion;
 
+import static Conexion.Conexion.*;
 import domain.Usuario;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +24,7 @@ public class UsuarioDAO {
       List<Usuario> usuarios = new ArrayList<>();
       
         try {
-            conn = Conexion.getConnection();
+            conn = getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             
@@ -36,6 +39,16 @@ public class UsuarioDAO {
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
-        return null;
+        finally{
+          try {
+              Conexion.close(rs);
+              Conexion.close(stmt);
+              Conexion.close(conn);
+          } catch (SQLException ex) {
+              ex.printStackTrace(System.out);
+          }
+            
+        }
+        return usuarios;
    }
 }
