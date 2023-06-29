@@ -27,12 +27,12 @@ public class Conexion {
         rs.close();
     }
 
-    public static void close(Statement smtm) throws SQLException {
-        smtm.close();
+    public static void close(Statement stmt) throws SQLException {
+        stmt.close();
     }
 
-    public static void close(PreparedStatement smtm) throws SQLException {
-        smtm.close();
+    public static void close(PreparedStatement stmt) throws SQLException {
+        stmt.close();
     }
     
     public static void close(Connection conn) throws SQLException {

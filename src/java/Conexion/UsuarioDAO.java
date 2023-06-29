@@ -1,81 +1,82 @@
-
 package Conexion;
 
 import static Conexion.Conexion.*;
 import domain.Usuario;
 import java.sql.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  *
  * @author jhumb
  */
 public class UsuarioDAO {
-    private static final String SQL_SELECT = "SELECT ide_usr, ndu_usr, con_usr FROM dusuarios";
-    private static final String SQL_INSERT = "INSERT INTO dusuarios(ide_usr, ndu_usr, con_usr) VALUES(?, ?, ?)";
-    
-    
-   public List<Usuario> seleccionar(){
-      Connection conn = null;
-      PreparedStatement stmt = null;
-      ResultSet rs = null;
-      Usuario usuario = null;
-      List<Usuario> usuarios = new ArrayList<>();
-      
+
+    private static final String SQL_SELECT = "SELECT ide_usr, ndu_usr, con_usr FROM musuarios";
+    private static final String SQL_INSERT = "INSERT INTO musuarios( ndu_usr, con_usr) VALUES(?, ?)";
+
+    public List<Usuario> seleccionar() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Usuario usuario = null;
+        List<Usuario> usuarios = new ArrayList<>();
+
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 int ideUsuario = rs.getInt("ide_usr");
                 String nombre = rs.getString("ndu_usr");
                 String contraseña = rs.getString("con_usr");
-                usuario = new Usuario(ideUsuario,nombre,contraseña);
-                
+                usuario = new Usuario(ideUsuario, nombre, contraseña);
+
                 usuarios.add(usuario);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        }
-        finally{
-          try {
-              close(rs);
-              close(stmt);
-              close(conn);
-          } catch (SQLException ex) {
-              ex.printStackTrace(System.out);
-          }
-            
+        } finally {
+            try {
+                close(rs);
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
+
         }
         return usuarios;
-   }
-   
-   public int insertar(Usuario usuario){
-       Connection conn = null;
-       PreparedStatement stmt = null;
-       int registros = 0;
+    }
+
+    public int insertar(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
             stmt.setString(1, usuario.getNombre());
             stmt.setString(2, usuario.getContraseña());
-            
+
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }finally{
-           try {
-               close(stmt);
-               close(conn);
-           } catch (SQLException ex) {
-               ex.printStackTrace(System.out);
-           }
+            if(stmt != null)
+        try{
+            close(stmt); 
+        }catch(Exception e){
+            System.out.println("Problema con el cierre de Statement DB");
+        }
+            if(conn != null)
+        try{
+            close(conn);
+        }catch(Exception e){
+            System.out.println("Problema con el cierre de conexion DB");
+        }
         }
         return registros;
-       
-   }
+
+    }
 }
