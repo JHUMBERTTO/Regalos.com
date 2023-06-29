@@ -29,6 +29,16 @@
       </ul>
     </div>
   </navbar>
+    <%
+    class public Conexion{
+       UsuarioDAO usuarioDao = new UsuarioDAO();
+        // Insertando un nuevo objeto de tipo Usuario
+
+        Usuario usuarioNuevo = new Usuario("Marco", "Sukuna");
+        System.out.println(Usuario);
+        usuarioDao.insertar(usuarioNuevo);
+    }
+    %>
   <section style="width: auto; height: auto; border-radius: 20px; text-align: center; color:#626262 ; background-color: #f4f4f4; padding: 10px; position: fixed; z-index: 1; right: 0.5%; bottom: 5%; border: 1px solid black;">
     <div>
       <h2>
