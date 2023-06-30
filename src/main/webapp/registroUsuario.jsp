@@ -39,17 +39,72 @@
 <%
     System.out.println("Ejecucion");
     ClienteDAO clienteDao = new ClienteDAO();
-     // Insertando un nuevo objeto de tipo Usuario
+    
+    String ide_cli = "";
+    String nom_cli = "";
+    String dir_cli = "";
+    int tel_cli = 0;
+    String ciu_cli = null;
+    String est_cli = null;
+    int cpt_cli = 0;
+    double ldc_cli = 0.0;
+    String com_cli = null;
 
-     Cliente clienteNuevo = new Cliente( 12 ,"Migue", "Mar", "CDMX", "CDMX", "11234", "5532325678", "0.1", "Hola esto es un comentario" );
-     clienteDao.insertar(clienteNuevo);
+    // Datos obligatorios
+    try {
+        ide_cli = request.getParameter("ide_cli");
+        nom_cli = request.getParameter("nom_cli");
+        dir_cli = request.getParameter("dir_cli");
+        tel_cli = Integer.parseInt(request.getParameter("tel_cli"));
+    } catch (Exception ex) {
+        System.out.println("Problema con extracción de datos");
+        ex.printStackTrace();
+    }
+
+    // Datos no Obligatorios
+    try {
+        ciu_cli = request.getParameter("ciu_cli");
+    } catch (Exception e) {
+        ciu_cli = null;
+    }
+
+    // Estado
+    try {
+        est_cli = request.getParameter("est_cli");
+    } catch (Exception e) {
+        est_cli = null;
+    }
+
+    // Código Postal
+    try {
+        cpt_cli = Integer.parseInt(request.getParameter("cpt_cli"));
+    } catch (Exception e) {
+        cpt_cli = 0;
+    }
+
+    // Límite de crédito
+    try {
+        ldc_cli = Double.parseDouble(request.getParameter("ldc_cli"));
+    } catch (Exception e) {
+        ldc_cli = 0.00;
+    }
+
+    // Comentarios
+    try {
+        com_cli = request.getParameter("com_cli");
+    } catch (Exception e) {
+        com_cli = null;
+    }
+    
+    Cliente clienteNuevo = new Cliente(ide_cli, nom_cli, dir_cli, ciu_cli, est_cli, cpt_cli, tel_cli, ldc_cli, com_cli);
+    clienteDao.insertar(clienteNuevo);
 %>
 <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 1300px; ">
     <div style="display: flex; justify-content: center; align-items: center;">
         <form action="registroUsuario.jsp" method="POST" onsubmit="return validateForm()" style="background-color:#626262; color: whitesmoke; border-radius: 20px; width: 450px; padding:30px;">
             <div style="display: flex; justify-content:space-around;">
                 <p style="font-size:15px;">Reg@los</p>
-                <h1 style="width: 80%;">ALTA TES</h1>
+                <h1 style="width: 80%;">ALTA CLIENTES</h1>
             </div>
             <div style="display: flex; align-items: center; justify-content: center;">
                 <h4>Por favor ingrese los datos del cliente a dar de alta</h4>
@@ -66,12 +121,12 @@
                     <input type="text" name="ciu_cli" id="ciu_cli" placeholder="Ciudad" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
                     <label for="est_cli" style="display: flex; justify-content: center; margin: 10px;">Estado</label>
                     <input type="text" name="est_cli" id="est_cli" placeholder="Estado" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
-                    <label for="cop_cli" style="display: flex; justify-content: center; margin: 10px;">Codigo Postal</label>
-                    <input type="text" name="cop_cli" id="cop_cli" placeholder="Codigo Postal" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
+                    <label for="cpt_cli" style="display: flex; justify-content: center; margin: 10px;">Codigo Postal</label>
+                    <input type="text" name="cpt_cli" id="cpt_cli" placeholder="Codigo Postal" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
                     <label for="tel_cli" style="display: flex; justify-content: center; margin: 10px;">Telefono *</label>
                     <input type="tel" name="tel_cli" id="tel_cli" placeholder="Telefono" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
                     <label for="ldc_cli" style="display: flex; justify-content: center; margin: 10px;">Limite de Credito</label>
-                    <input type="number" name="ldc_cli" id="ldc_cli" title="Ingresa un número decimal válido" placeholder="0.00" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
+                    <input type="number" name="ldc_cli" id="ldc_cli" title="Ingresa un número decimal válido" placeholder="0.00" step="any" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
                     <label for="com_cli" style="display: flex; justify-content: center; margin: 10px;">Comentarios</label>
                     <input type="text" name="com_cli" id="com_cli" placeholder="Comentar" style="border-radius: 20px; border: none; height: 30px; width: 200px;">
                 </div>
@@ -114,7 +169,7 @@
             }
 
             // Validar el campo Límite de Crédito (números decimales)
-            if (!/^\d+\.\d{1,2}$/.test(limiteCredito)) {
+            if (limiteCredito !== "" && !/^\d+\.\d{1,2}$/.test(limiteCredito)) {
                 alert("El campo Límite de Crédito debe ser un número decimal válido. Por favor, ingréselo correctamente.");
                 return false; // Evitar que se envíe el formulario
             }
