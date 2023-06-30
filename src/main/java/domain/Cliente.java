@@ -9,17 +9,18 @@ package domain;
  * @author jhumb
  */
 public class Cliente {
-    private int ideCliente;
+
+    private String ideCliente;
     private String nombre;
     private String direccion;
     private String ciudad;
     private String estado;
-    private String codigoPostal;
-    private String telefono;
-    private String limiteDeCredito;
+    private int codigoPostal;
+    private int telefono;
+    private double limiteDeCredito;
     private String comentarios;
 
-    public Cliente(int ideCliente, String nombre, String direccion, String ciudad, String estado, String codigoPostal, String telefono, String limiteDeCredito, String comentarios) {
+    public Cliente(String ideCliente, String nombre, String direccion, String ciudad, String estado, int codigoPostal, int telefono, double limiteDeCredito, String comentarios) {
         this.ideCliente = ideCliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -31,11 +32,11 @@ public class Cliente {
         this.comentarios = comentarios;
     }
 
-    public int getIdeCliente() {
+    public String getIdeCliente() {
         return ideCliente;
     }
 
-    public void setIdeCliente(int ideCliente) {
+    public void setIdeCliente(String ideCliente) {
         this.ideCliente = ideCliente;
     }
 
@@ -71,27 +72,27 @@ public class Cliente {
         this.estado = estado;
     }
 
-    public String getCodigoPostal() {
+    public int getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
+    public void setCodigoPostal(int codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
-    public String getLimiteDeCredito() {
+    public double getLimiteDeCredito() {
         return limiteDeCredito;
     }
 
-    public void setLimiteDeCredito(String limiteDeCredito) {
+    public void setLimiteDeCredito(double limiteDeCredito) {
         this.limiteDeCredito = limiteDeCredito;
     }
 
@@ -102,8 +103,5 @@ public class Cliente {
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
-    
-    
-    
-    
+
 }
