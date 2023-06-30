@@ -43,9 +43,6 @@
     UsuarioDAO usuarioDao = new UsuarioDAO();
      // Insertando un nuevo objeto de tipo Usuario
 
-     Usuario usuarioNuevo = new Usuario("Migue", "Cachorrito01");
-     System.out.println(usuarioNuevo);
-     usuarioDao.insertar(usuarioNuevo);
 %>
 <body style="width:auto; height: auto; margin: 0;">
     <div style="display: flex; justify-content: center; align-items: center; height: 1000px" >
