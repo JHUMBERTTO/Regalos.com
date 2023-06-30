@@ -13,13 +13,6 @@ public class Usuario {
     private String nombre;
     private String contraseña;
 
-    public Usuario() {
-    }
-
-    public Usuario(int ideUsuario) {
-        this.ideUsuario = ideUsuario;
-    }
-
     public Usuario(String nombre, String contraseña) {
         this.nombre = nombre;
         this.contraseña = contraseña;
@@ -30,6 +23,8 @@ public class Usuario {
         this.nombre = nombre;
         this.contraseña = contraseña;
     }
+    
+    
 
     public int getIdeUsuario() {
         return ideUsuario;

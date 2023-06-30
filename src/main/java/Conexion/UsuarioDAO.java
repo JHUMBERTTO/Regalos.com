@@ -12,7 +12,7 @@ import java.util.*;
 public class UsuarioDAO {
 
     private static final String SQL_SELECT = "SELECT ide_usr, ndu_usr, con_usr FROM musuarios";
-    private static final String SQL_INSERT = "INSERT INTO `mclientes`( `nom_cli`, `dir_cli`, `ciu_cli`, `est_cli`, `cpt_cli`, `tel_cli`, `lim_cli`, `com_cli`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO `musuarios`( `ndu_usr`, `con_usr`) VALUES(?, ?)";
 
     public List<Usuario> seleccionar() {
         Connection conn = null;
