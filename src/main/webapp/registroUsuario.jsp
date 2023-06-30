@@ -3,6 +3,8 @@
     Created on : Jun 25, 2023, 5:58:34 PM
     Author     : jhumb
 --%>
+<%@page import="domain.Cliente"%>
+<%@page import="Conexion.ClienteDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*"%>
 <!DOCTYPE html>
@@ -34,6 +36,14 @@
         </div>
     </navbar>
 </head>
+<%
+    System.out.println("Ejecucion");
+    ClienteDAO clienteDao = new ClienteDAO();
+     // Insertando un nuevo objeto de tipo Usuario
+
+     Cliente clienteNuevo = new Cliente( 12 ,"Migue", "Mar", "CDMX", "CDMX", "11234", "5532325678", "0.1", "Hola esto es un comentario" );
+     clienteDao.insertar(clienteNuevo);
+%>
 <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 1300px; ">
     <div style="display: flex; justify-content: center; align-items: center;">
         <form action="registroUsuario.jsp" method="POST" onsubmit="return validateForm()" style="background-color:#626262; color: whitesmoke; border-radius: 20px; width: 450px; padding:30px;">
