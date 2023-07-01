@@ -14,6 +14,51 @@ import java.util.*;
  */
 public class ClienteDAO {
     private static final String SQL_INSERT = "INSERT INTO `mclientes`( `ide_cli`, `nom_cli`, `dir_cli`, `ciu_cli`, `est_cli`, `cpt_cli`, `tel_cli`, `ldc_cli`, `com_cli`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+    private static final String SQL_SELECT = "SELECT * FROM `mclientes`";
+    
+    public List<Cliente> seleccionar() throws ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Cliente cliente = null;
+        List<Cliente> clientes = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String ideCliente = rs.getString("ide_cli");
+                String nombre = rs.getString("nom_cli");
+                String direccion = rs.getString("dir_cli");
+                String ciudad = rs.getString("ciu_cli");
+                String estado = rs.getString("est_cli");
+                int codigoPostal = rs.getInt("cpt_cli");
+                String telefono = rs.getString("tel_cli");
+                double limiteDeCredito = rs.getDouble("ldc_cli");
+                String comentarios = rs.getString("com_cli");
+                
+                cliente = new Cliente(ideCliente, nombre, direccion, ciudad, estado, codigoPostal, telefono, limiteDeCredito, comentarios);
+                clientes.add(cliente);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                close(rs);
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
+
+        }
+        return clientes;
+    }
+    
+    
     
     public int insertar(Cliente cliente) throws ClassNotFoundException {
         Connection conn = null;
@@ -29,7 +74,7 @@ public class ClienteDAO {
             stmt.setString(4, cliente.getCiudad());
             stmt.setString(5, cliente.getEstado());
             stmt.setInt(6, cliente.getCodigoPostal());
-            stmt.setInt(7, cliente.getTelefono());
+            stmt.setString(7, cliente.getTelefono());
             stmt.setDouble(8, cliente.getLimiteDeCredito());
             stmt.setString(9, cliente.getComentarios());
 
