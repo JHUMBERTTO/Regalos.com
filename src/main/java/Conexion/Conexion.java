@@ -24,7 +24,9 @@ public class Conexion {
     }
 
     public static void close(ResultSet rs) throws SQLException {
-        rs.close();
+        if (rs != null) {
+            rs.close();
+        }
     }
 
     public static void close(Statement stmt) throws SQLException {
