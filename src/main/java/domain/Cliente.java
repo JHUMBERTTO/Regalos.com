@@ -16,11 +16,11 @@ public class Cliente {
     private String ciudad;
     private String estado;
     private int codigoPostal;
-    private int telefono;
+    private String telefono;
     private double limiteDeCredito;
     private String comentarios;
 
-    public Cliente(String ideCliente, String nombre, String direccion, String ciudad, String estado, int codigoPostal, int telefono, double limiteDeCredito, String comentarios) {
+    public Cliente(String ideCliente, String nombre, String direccion, String ciudad, String estado, int codigoPostal, String telefono, double limiteDeCredito, String comentarios) {
         this.ideCliente = ideCliente;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -80,11 +80,11 @@ public class Cliente {
         this.codigoPostal = codigoPostal;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
