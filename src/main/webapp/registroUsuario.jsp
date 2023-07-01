@@ -37,13 +37,14 @@
     </navbar>
 </head>
 <%
+    if (request.getMethod().equals("POST")) {
     System.out.println("Ejecucion");
     ClienteDAO clienteDao = new ClienteDAO();
-    
+
     String ide_cli = "";
     String nom_cli = "";
     String dir_cli = "";
-    int tel_cli = 0;
+    String tel_cli = "";
     String ciu_cli = null;
     String est_cli = null;
     int cpt_cli = 0;
@@ -55,7 +56,7 @@
         ide_cli = request.getParameter("ide_cli");
         nom_cli = request.getParameter("nom_cli");
         dir_cli = request.getParameter("dir_cli");
-        tel_cli = Integer.parseInt(request.getParameter("tel_cli"));
+        tel_cli = request.getParameter("tel_cli");
     } catch (Exception ex) {
         System.out.println("Problema con extracción de datos");
         ex.printStackTrace();
@@ -95,9 +96,11 @@
     } catch (Exception e) {
         com_cli = null;
     }
-    
+
     Cliente clienteNuevo = new Cliente(ide_cli, nom_cli, dir_cli, ciu_cli, est_cli, cpt_cli, tel_cli, ldc_cli, com_cli);
     clienteDao.insertar(clienteNuevo);
+    response.sendRedirect("responseRegistro.jsp");
+    }
 %>
 <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 1300px; ">
     <div style="display: flex; justify-content: center; align-items: center;">
